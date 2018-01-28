@@ -1,0 +1,36 @@
+<%= render "proposals/sidenav" %>  
+
+<% if @proposals.present? %>
+	<% @proposals.each do |proposal| %>
+		<li>
+		<%= proposal.id %>
+		<%= proposal.car_make.name %>
+		<%= proposal.car_model.name %>
+		$<%= proposal.price %>
+		<!-- What dealers see -->
+		<% if current_user.present? && current_user.dealership_id? %>
+			<% if proposal.responses.present? %>
+				<% proposal.responses.each do |response| %>
+					<% if response.proposal_id? && response.proposal_id == proposal.id %>
+						<%= link_to "Review Offer", response_path(id: response.id) %>
+					<% end %>
+				<% end %>
+			<% else %>
+				<%= link_to "Respond", new_response_path(id: proposal.id) %>
+			<% end %>
+		<!-- What customers see -->
+		<% elsif current_user.present? %>
+			<% @responses.each do |response| %>
+				<% if response.proposal_id == proposal.id %>
+					<%= link_to response.user.first_name, response_path(id: response.id) %>
+				<% end %>
+			<% end %>
+		<% end %>
+		</li>
+	<% end %>
+<% else %>
+	<h6>You have no proposals at the moment.</h6>
+<% end %>
+
+
+

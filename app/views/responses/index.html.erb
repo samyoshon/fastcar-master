@@ -1,0 +1,8 @@
+<% @responses.each do |response| %>
+	<% if current_user.present? && current_user.dealership_id? %>
+		<%= link_to response.id, response_path(id: response.id) %>
+		<%= link_to "Delete", response_path(response), method: :delete, data: { confirm: 'Are you certain you want to delete this?' } %>
+	<% elsif current_user.present? %>
+
+	<% end %>
+<% end %>

@@ -1,0 +1,59 @@
+<%= form_for(@proposal, :html => {:multipart => true})  do |f| %>
+  <div class="form-group container">
+    <div>
+      <%= f.collection_select :purchase_option_id, PurchaseOption.order(:option), :id, :option, include_blank: true %>
+    </div>
+    <div>
+      <%= f.collection_select :car_quality_id, CarQuality.order('quality ASC'), :id, :quality, include_blank: true %>
+    </div>
+    <div>
+      <%= f.collection_select :car_make_id, CarMake.order('name ASC'), :id, :name, include_blank: true %>
+    </div>
+    <div>
+      <%= f.grouped_collection_select :car_model_id, CarMake.order('name ASC'), :car_models, :name, :id, :name, include_blank: true %>
+    </div>
+    <div>
+      <%= f.text_field :car_year_id, autofocus: true, placeholder: "Car Year", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :car_trim_id, autofocus: true, placeholder: "Car Trim", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :car_color_id, autofocus: true, placeholder: "Car Color", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :price, autofocus: true, placeholder: "Price", class: "form-control", required: true %>
+    </div>
+    <div>
+      <%= f.text_field :down_payment, autofocus: true, placeholder: "Down Payment", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :lease_length, autofocus: true, placeholder: "Lease Length", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :mileage_limit, autofocus: true, placeholder: "Annual Mileage Limit", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :financing, autofocus: true, placeholder: "Financing", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :deadline, autofocus: true, placeholder: "Deadline", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :street, autofocus: true, placeholder: "Street", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :city, autofocus: true, placeholder: "City", class: "form-control" %>
+    </div>    
+    <div>
+      <%= f.text_field :state, autofocus: true, placeholder: "State", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :zipcode, autofocus: true, placeholder: "Zipcode", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :radius_limit, autofocus: true, placeholder: "Distance Limit", class: "form-control" %>
+    </div>
+  </div>
+  <%= f.submit "Post Request" %>
+<% end %>

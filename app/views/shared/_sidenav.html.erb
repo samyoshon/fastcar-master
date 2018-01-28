@@ -1,0 +1,33 @@
+<div>
+	<% if current_user.present? %>
+		<li><%= link_to "Proposals", proposals_path, class: "list-group-item list-group-item-action" %> <%= current_user.email %></li>
+	<% end %>
+	<% if current_user.present? && current_user.dealership_id? %>
+		<li><%= link_to "Responses", responses_path, class: "list-group-item list-group-item-action" %> <%= current_user.email %></li>
+
+	<% end %>
+</div>
+
+<div class="sidenav card">
+	<%= search_form_for @q, html: { class: ""} do |f| %>
+		<h6>Categories</h6>
+		<% if current_user.present? && current_user.dealership_id? %>
+			<% CarModel.where("car_make_id = ?", current_user.dealership.car_make_id).order("name asc").each do |category| %>
+				<%= f.check_box :car_model_id_in, {class: "checkbox inline", multiple: true, include_blank: true, onchange: 'this.form.submit();' }, category.id, nil %>
+				<%= category.name %>
+			<% end %>
+		<% elsif current_user.present? %>
+			<% @proposals_nav.each do |proposal| %>
+				<%= f.check_box :car_model_id_in, {class: "checkbox inline", multiple: true, include_blank: true, onchange: 'this.form.submit();' }, proposal.car_model_id, nil %>
+				<%= proposal.car_model.name %>
+			<% end %>
+		<% end %>
+		<hr>
+		<h6 class="market-highlight">Price</h6>
+
+		<%= f.number_field :price_gteq, placeholder: "Low", class: "form-control sidenav-price-label" %> 
+			to 
+		<%= f.number_field :price_lteq, placeholder: "High", class: "form-control sidenav-price-label" %>
+	    <%= f.button '<i class="fa fa-chevron-right" aria-hidden="true"></i>'.html_safe, class: "btn btn-primary card", 'data-disable-with' => "<i class='fa fa-spinner fa-spin'>".html_safe %>
+	<% end %>
+</div>

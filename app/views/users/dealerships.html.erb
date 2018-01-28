@@ -1,0 +1,40 @@
+<div class="content-container">
+
+  <div class="container col-md-10 col-sm-12 container-mobile-product">
+    <h1>Edit Dealerships</h1>
+
+    <%= form_for(@dealership, :url => 'dealerships', :html => {:multipart => true})  do |f| %>
+      <% if @dealership.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@dealership.errors.count, "error") %> prohibited this listing from being saved:</h2>
+
+          <ul>
+          <% @dealership.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <hr>
+      <h4>Dealership</h4>
+        <div class="form-group">
+          <%= f.text_field :name, autofocus: true, placeholder: "product/index", class: "form-control" %>
+        </div>  
+        <div>
+          <%= f.collection_select :car_make_id, CarMake.order('name ASC'), :id, :name, include_blank: true %>
+        </div>
+      <hr>
+      <div class="form-group">
+        <%= f.button class: "btn btn-primary" %>
+      </div>
+    <% end %>
+
+    <hr>
+    <h1>Existing Dealerships</h1>
+      <% @dealerships.each do |dealership| %>
+        <%= dealership.name %>
+        <%= dealership.car_make.name %>
+      <% end %>
+
+  </div>
+</div>

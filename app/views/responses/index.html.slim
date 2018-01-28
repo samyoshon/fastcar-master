@@ -1,0 +1,20 @@
+h1 Listing responses
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @responses.each do |response|
+      tr
+        td = response.id
+        td = response.exterior_color
+        td = link_to 'Go To Original Proposal', proposal_path(response.proposal_id)
+        td = link_to 'Destroy', response, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Response', new_response_path

@@ -1,0 +1,39 @@
+<%= form_for(@response, :html => {:multipart => true})  do |f| %>
+  <div class="form-group">
+    <div>
+      <%= Proposal.find(params[:id]).car_model.name %>
+    </div>
+    <div>
+      <%= f.collection_select :car_year_id, CarYear.order(:year), :id, :year, include_blank: true %>
+    </div>
+    <div>
+      <%= f.text_field :car_trim_id, autofocus: true, placeholder: "Car Trim", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :car_color_id, autofocus: true, placeholder: "Car Color", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :price, autofocus: true, placeholder: "Price", class: "form-control", required: true %>
+    </div>
+    <div>
+      <%= f.text_field :down_payment, autofocus: true, placeholder: "Down Payment", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :lease_length, autofocus: true, placeholder: "Lease Length", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :mileage_limit, autofocus: true, placeholder: "Annual Mileage Limit", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :financing, autofocus: true, placeholder: "Financing", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :deadline, autofocus: true, placeholder: "Deadline", class: "form-control" %>
+    </div>
+    <div>
+      <%= f.text_field :add_ons, autofocus: true, placeholder: "Add Ons", class: "form-control" %>
+    </div>
+    <%= f.hidden_field :proposal_id, :value => params[:id] %>
+  </div>
+  <%= f.submit "Post Request" %>
+<% end %>
